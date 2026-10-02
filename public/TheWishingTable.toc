@@ -1,6 +1,6 @@
 ## Title: The Wishing Table
-## Interface: 120000, 120001, 120002, 120005
-## X-Min-Interface:  120000, 120001, 120002, 120005
+## Interface: 120100, 120000, 120001, 120002, 120005
+## X-Min-Interface: 120100, 120000, 120001, 120002, 120005
 ## X-Future-Interface: TBA
 ## Version: @project-version@
 ## IconTexture: Interface\AddOns\TheWishingTable\addonIcon.jpg
