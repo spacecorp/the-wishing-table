@@ -80,7 +80,7 @@ end
 local function getCharacterinfo(target)
   local genderTable = { "neuter or unknown", "male", "female" }
   local playerClass, englishClass, classIndex = UnitClass(target)
-  local name, upName, level = UnitName(target)
+  local name, upName, level = UnitFullName(target)
   local unitLevel = UnitLevel(target)
   local gender = genderTable[UnitSex(target)]
   local race, raceEn = UnitRace(target)
@@ -89,7 +89,7 @@ local function getCharacterinfo(target)
 end
 
 function TheWishingTable.Helpers.GetTargetInformation()
-  if UnitName("target") then
+  if UnitFullName("target") then
     return getCharacterinfo("target")
   end
 
