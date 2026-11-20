@@ -2,6 +2,15 @@
 TheWishingTable.TheWishingTable = {}
 local feature = "TheWishingTable"
 
+-- Spell categories announced by this file (see the prefix block in speakconsumableSpell).
+local HANDLED_CATEGORIES = {
+  mage_table = true,
+  soul_well = true,
+  cauldron = true,
+  feast = true,
+  tent = true,
+}
+
 function TheWishingTable.TheWishingTable.speakconsumableSpell(spellId)
   local pickedLine
 
@@ -39,14 +48,18 @@ function TheWishingTable.TheWishingTable.speakconsumableSpell(spellId)
   -- prefix
   local prefixText = ""
 
+
+
   if (spellCategory == "mage_table") then
     prefixText = "Mage Table"
   elseif (spellCategory == "soul_well") then
-    prefixText = "Soul Well"
+    prefixText = "Soulwell"
   elseif (spellCategory == "cauldron") then
     prefixText = "Cauldron"
   elseif (spellCategory == "feast") then
     prefixText = "Feast"
+  elseif (spellCategory == "tent") then
+    prefixText = "Tent"
   end
 
   local prefix = TheWishingTableVars.usePrefix == true and "[" .. prefixText .. " put down]: " or ""
@@ -90,7 +103,7 @@ function TheWishingTable.TheWishingTable.speakconsumableSpell(spellId)
     "Great ${playerRace} food.",
     "Crust first!",
     "When you've all eaten properly, you get epix!",
-    "The events are so exciting. When I’m done I don’t want to eat. That's why we eat first!",
+    "The events are so exciting. When I'm done I don't want to eat. That's why we eat first!",
     "Everyone loves something at McDonald's, but this one is just deplorable...",
     "If you combine this wine and dinner, the new word is winner.",
     "Maybe this junk food is good and the other food is no good.",
@@ -108,12 +121,12 @@ function TheWishingTable.TheWishingTable.speakconsumableSpell(spellId)
     "Cooked inside a nuclear reactor. It was the only heat source available",
     "I promise it tastes better than it looks. Or smells. Or feels.",
     "Bon appétit! Please sign these liability waivers first.",
-    "It’s an experimental recipe. The experiment is seeing if we survive.",
+    "It's an experimental recipe. The experiment is seeing if we survive.",
     "I dropped a piece on the floor, but I honestly don't know which one.",
     "It was supposed to be a soufflé, but it identified as a pancake today.",
     "I didn't have all the ingredients, so I used my imagination and some ketchup.",
     "Behold! A Michelin-starred disaster.",
-    "It’s rustic. Which is chef code for 'I completely messed up the presentation'.",
+    "It's rustic. Which is chef code for 'I completely messed up the presentation'.",
     "I call this dish: 'What was left in the fridge before payday'.",
     "This is me on a plate. I just need a couple of heals to get to the next fight.",
   }
@@ -368,7 +381,7 @@ function TheWishingTable.TheWishingTable.speakconsumableSpell(spellId)
     )
     table.insert(
       consumableSpellLines,
-      "I've channelled all souls from ${zoneName} into this Sould Well."
+      "I've channelled all souls from ${zoneName} into this Soulwell."
     )
   elseif spellCategory == "mage_table" then
     table.insert(consumableSpellLines, "A wild mage table appeared!")
@@ -389,7 +402,7 @@ function TheWishingTable.TheWishingTable.speakconsumableSpell(spellId)
   -- time of the day based messaged
 
   if localHour < 4 then
-    -- Midnight snack (00:00 – 03:59)
+    -- Midnight snack (00:00 - 03:59)
     table.insert(
       consumableSpellLines,
       "For the main course, we have a dish inspired by my absolute favorite midnight snack. It balances the heat of a ${zoneName} peanut sauce with the junk-food thrill of your favorite childhood takeout."
@@ -412,7 +425,7 @@ function TheWishingTable.TheWishingTable.speakconsumableSpell(spellId)
   end
 
   if localHour >= 5 and localHour < 10 then
-    -- Breakfast (05:00 – 09:59)
+    -- Breakfast (05:00 - 09:59)
     table.insert(
       consumableSpellLines,
       "First meal of the day, served right here in ${zoneName}. No toast, but the company is excellent."
@@ -427,12 +440,12 @@ function TheWishingTable.TheWishingTable.speakconsumableSpell(spellId)
   end
 
   if localHour >= 10 and localHour < 12 then
-    -- Brunch (10:00 – 11:59)
+    -- Brunch (10:00 - 11:59)
     table.insert(
       consumableSpellLines,
-      "Too late for breakfast, too early for lunch – so we call it a feast and move on."
+      "Too late for breakfast, too early for lunch - so we call it a feast and move on."
     )
-    if (localHour == 11 and (Race.BloodElf or Race.NightElf or Race.Nightborne or Race.Haranir)) then
+    if (localHour == 11 and (playerRace == Race.BloodElf or playerRace == Race.NightElf or playerRace == Race.Nightborne or playerRace == Race.Haranir)) then
       table.insert(
         consumableSpellLines,
         "Elevenses! The most civilised tradition in all the realms. Table is up."
@@ -441,10 +454,10 @@ function TheWishingTable.TheWishingTable.speakconsumableSpell(spellId)
   end
 
   if localHour >= 12 and localHour < 14 then
-    -- Lunch (12:00 – 13:59)
+    -- Lunch (12:00 - 13:59)
     table.insert(
       consumableSpellLines,
-      "Dim sum energy at noon – a little of everything for everyone. Table is up!"
+      "Dim sum energy at noon - a little of everything for everyone. Table is up!"
     )
     table.insert(
       consumableSpellLines,
@@ -453,15 +466,15 @@ function TheWishingTable.TheWishingTable.speakconsumableSpell(spellId)
   end
 
   if localHour >= 14 and localHour < 18 then
-    -- Afternoon tea (14:00 – 17:59)
+    -- Afternoon tea (14:00 - 17:59)
     if likelyUK then
       table.insert(
         consumableSpellLines,
-        "Right then – put the kettle on! Oh wait, we've got a whole banquet. Even better, innit."
+        "Right then - put the kettle on! Oh wait, we've got a whole banquet. Even better, innit."
       )
       table.insert(
         consumableSpellLines,
-        "Cor blimey – tea time in ${zoneName}! Scones optional, attendance mandatory."
+        "Cor blimey - tea time in ${zoneName}! Scones optional, attendance mandatory."
       )
     end
     table.insert(
@@ -470,7 +483,7 @@ function TheWishingTable.TheWishingTable.speakconsumableSpell(spellId)
     )
     table.insert(
       consumableSpellLines,
-      "Four o'clock feast – internationally recognised as the most civilised time to eat."
+      "Four o'clock feast - internationally recognised as the most civilised time to eat."
     )
     table.insert(
       consumableSpellLines,
@@ -480,21 +493,21 @@ function TheWishingTable.TheWishingTable.speakconsumableSpell(spellId)
     if localHour == 16 then
       table.insert(
         consumableSpellLines,
-        "Brotzeit! The Dwarfs were right – 4pm absolutely deserves a snack. Table delivered."
+        "Brotzeit! The Dwarfs were right - 4pm absolutely deserves a snack. Table delivered."
       )
     end
   end
 
   if localHour >= 18 and localHour < 21 then
-    -- Dinner (18:00 – 20:59)
+    -- Dinner (18:00 - 20:59)
     table.insert(
       consumableSpellLines,
-      "Dinner is served! Pull up a chair – the table won't last forever and neither will the boss."
+      "Dinner is served! Pull up a chair - the table won't last forever and neither will the boss."
     )
   end
 
   if localHour >= 21 then
-    -- Late-night supper (21:00 – 23:59)
+    -- Late-night supper (21:00 - 23:59)
     table.insert(
       consumableSpellLines,
       "I brought the fridge, the microwave and some paper plates for a late-night supper!"
@@ -600,7 +613,7 @@ function TheWishingTable.TheWishingTable.speakconsumableSpell(spellId)
 
   -- Bastille Day (France)
   if (d.month == 7 and d.day == 14) then
-    -- table.insert(consumableSpellLines, "Liberté, égalité, fraternité! Vive la France – and vive this feast!")
+    -- table.insert(consumableSpellLines, "Liberté, égalité, fraternité! Vive la France - and vive this feast!")
   end
 
   -- Lammas (Lughnasadh, Celtic harvest festival)
@@ -640,7 +653,7 @@ function TheWishingTable.TheWishingTable.speakconsumableSpell(spellId)
     )
   end
 
-  -- Day of the Dead (Día de Muertos) – Oct 31 - Nov 2
+  -- Day of the Dead (Día de Muertos) - Oct 31 - Nov 2
   if (d.month == 10 and d.day == 31) or (d.month == 11 and d.day >= 1 and d.day <= 2) then
     -- table.insert(consumableSpellLines, "D�a de Muertos! We celebrate with feasts and flowers for those who came before us.")
     table.insert(consumableSpellLines, "Today's specialty: Queso de la muerte!")
@@ -935,6 +948,11 @@ function TheWishingTable.TheWishingTable.Run()
 
     -- In debug mode, allow any spell through
     if not isKnownSpell and not isDebugMode then return end
+
+    -- Only handle the categories this file has lines for; other categories
+    -- are handled in TheWishingAdditions.lua.
+    local spellCategory = TheWishingTable.SpellIds.getSpellCategory(spellID)
+    if not HANDLED_CATEGORIES[spellCategory] and not (isDebugMode and not isKnownSpell) then return end
 
     -- A spell with a cast time fires START and then SUCCEEDED for the same cast;
     -- announce it only once.

@@ -8,4 +8,5 @@
     <Script file="Src/SpellIds.lua" />
     <Script file="Src/Constants/Constants.lua" />
     <Script file="Src/TheWishingTable/TheWishingTable.lua" />
+    <Script file="Src/TheWishingTable/TheWishingAdditions.lua" />
 </Ui>
