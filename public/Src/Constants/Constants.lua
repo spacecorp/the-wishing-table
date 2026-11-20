@@ -1,4 +1,3 @@
--- Shared randomization utility for contextual cycling
 TheWishingTable.Constants = {}
 
 TheWishingTable.Constants.Class = {
@@ -24,12 +23,13 @@ TheWishingTable.Constants.Race = {
   Dwarf = "Dwarf",
   Gnome = "Gnome",
   Human = "Human",
-  KulTiran = "Kul Tiran", -- human
+  KulTiran = "Kul Tiran",
   LightforgedDraenei = "Lightforged Draenei",
   Mechagnome = "Mechagnome",
   NightElf = "Night Elf",
   VoidElf = "Void Elf",
   Worgen = "Worgen",
+
   -- Horde
   BloodElf = "Blood Elf",
   Goblin = "Goblin",
@@ -42,13 +42,17 @@ TheWishingTable.Constants.Race = {
   Undead = "Undead",
   Vulpera = "Vulpera",
   ZandalariTroll = "Zandalari Troll",
+
   -- Neutral
   Dracthyr = "Dracthyr",
   Earthen = "Earthen",
-  Pandaren = "Pandaren",
-  -- Aliases used in the codebase
-  Gilnean = "Gilnean",
-  Scourge = "Scourge",
-  -- Custom
   Haranir = "Haranir",
+  Pandaren = "Pandaren",
+  Skyborne = "Skyborne", -- WoW: Forever
+
+  -- Aliases / Client API variants used in codebases
+  Gilnean = "Gilnean", -- Worgen human form
+  Scourge = "Scourge", -- Undead API fileName
+  HighOrderSkyborne = "High Order Skyborne", -- WoW: Forever Alliance Skyborne
+  WindshaperSkyborne = "Windshaper Skyborne", -- WoW: Forever Horde Skyborne
 }
